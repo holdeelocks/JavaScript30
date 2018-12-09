@@ -58,6 +58,24 @@
       };
     }
 
+    const sliderImages = document.querySelectorAll('.slide-in');
+    function checkSlide(e) {
+      sliderImages.forEach(image => {
+        //find the midpoint of each image
+        const slideInAt = (window.scrollY + window.innerHeight) - image.height / 2;
+        const imageBottom = image.offsetTop + image.height; //find the pixelheight of the bottom of the img from top of page
+        const isHalfShown = slideInAt > image.offsetTop;
+        const isNotScrolledPast = window.scrollY < imageBottom;
+        if (isHalfShown && isNotScrolledPast) { //if we're at the halfway point add the class so it slides in
+          image.classList.add('active');
+        } else {
+          image.classList.remove('active'); //otherwise remove it so it goes away
+        }
+
+      })
+    
+    }
+    window.addEventListener('scroll', debounce(checkSlide));
   </script>
 
   <style>
